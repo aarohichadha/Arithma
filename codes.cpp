@@ -388,25 +388,47 @@ BigInt sqrt(BigInt & a){
 	return v;
 }
 
+// BigInt NthCatalan(int n) {
+//     if (n == 0) return BigInt(1); // Base case C_0 = 1
+
+//     BigInt numerator(1), denominator(1);
+
+//     // Calculate (2n)!
+//     for (int i = 2; i <= 2 * n; i++) {
+//         numerator *= i;
+//     }
+
+//     // Calculate (n+1)! and n!
+//     for (int i = 2; i <= n; i++) {
+//         denominator *= i; // n!
+//     }
+//     denominator *= (n + 1); // Multiply by (n+1)!
+
+//     // Divide to get C_n
+//     return numerator / denominator;
+// }
 BigInt NthCatalan(int n) {
     if (n == 0) return BigInt(1); // Base case C_0 = 1
 
-    BigInt numerator(1), denominator(1);
-
     // Calculate (2n)!
-    for (int i = 2; i <= 2 * n; i++) {
-        numerator *= i;
+    BigInt numerator(1);
+    for (int i = 2 * n; i > n; --i) {
+        numerator *= BigInt(i);
     }
 
-    // Calculate (n+1)! and n!
-    for (int i = 2; i <= n; i++) {
-        denominator *= i; // n!
+    // Calculate (n+1)! * n!
+    BigInt denominator(1);
+    for (int i = 2; i <= n + 1; ++i) {
+        denominator *= BigInt(i);
     }
-    denominator *= (n + 1); // Multiply by (n+1)!
+    for (int i = 2; i <= n; ++i) {
+        denominator *= BigInt(i);
+    }
 
-    // Divide to get C_n
+    // Catalan number is numerator / denominator
     return numerator / denominator;
 }
+
 
 
 BigInt NthFibonacci(int n){
